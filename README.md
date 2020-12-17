@@ -1,22 +1,37 @@
 # Sharing Components Between Nuxt 2.x And Vue CLI
 
-This is a POC project that demonstrates how components can be developed with an inner `Vue CLI` project and how to make them available to the outer `Nuxt` project.
+This is a POC project that demonstrates how Vue components can be developed as stand-alone components using `Vue CLI` and how to use them in `Nuxt`.
 
-The purpose is to facilitate the development of independent components, try them out before integrating them in the main project, and provide a standard "how to use" by a live example ("usage file")
+Using the proposed method of development will:
+* Help creating independent components
+* Facilitate a standard way to create a live usage example ("usage files") for components
 
 ## Shared Components Library
 
-The shared components should be located in `components/lib`, preferably in a dedicated folder and with a usage file (`.usage.vue` file extension) that demonstrates how the component should be used.
+The shared components should be located in `components/lib`, preferably in a dedicated folder accompanied with a usage file (`.usage.vue` file extension) to demonstrates how the component should be used.
 
 See `components/lib/nested-list` as an example.
 
-## Components Discover Page
+## Components Discovery Page
 
-The `Vue CLI `project has an index page [http://localhost:8080/](http://localhost:8080/) that lists all components available in `components/lib` and makes it possible to preview each one of them.
+The `Vue CLI` project creates a route for each Vue component in `components/lib` and
+exposes an index page [http://localhost:8080/](http://localhost:8080/) that links to all of the existing component usage files.
 
 ### Usage file
 
 If a component has a usage file (e.g., `NestedList.vue` with `NestedList.usage.vue`), the usage file will be used when clicking on the component in the list
+
+### Component dependencies
+
+If a component in the library depends on other packages, `package.json` should be used to state these dependencies and a `file:` dependency should be added to the `package.json` of the `Nuxt` and `Vue CLI` projects to make the component dependencies be installed on `npm install`
+
+`peerDependencies` should be used in `package.json` for dependencies that will probably exist in the project using the component.
+
+See `components/lib/nested-list`, `package.json`, and `vue-cli/package.json`
+
+#### Notice
+`vue-cli/package.json` doesn't include the `vue` package as a dependency because otherwise `webpack` will inconsistently include `node_modules/vue` and `vue-cli/node_modules/vue` packages when building the `vue-cli` project.
+To solve this issue, `vue` package is listed as a "peer dependency" in `vue-cli/package.json`
 
 ## Install and Run
 
@@ -30,9 +45,6 @@ $ npm install
 $ cd vue-cli
 $ npm install
 ```
-
-#### Notice
-`vue-cli/package.json` doesn't include the `vue` package as a dependency because otherwise `webpack` will include both `node_modules/vue` and `vue-cli/node_modules/vue` packages when building the `vue-cli` project.
 
 ### Run Nuxt
 
@@ -51,4 +63,4 @@ $ npm run serve
 
 ## POC Issues
 
-* A component might be dependent on some packages, so a way to express these dependencies should be developed (a per-component `package.json`?)
+* Relative paths must be used in shared components without `@` or `~` folder aliases

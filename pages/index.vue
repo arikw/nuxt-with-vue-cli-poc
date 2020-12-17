@@ -1,23 +1,29 @@
 <template>
-  <div class="container">
-    <div style="border: 2px solid black; border-radius: 5px; padding: 2em;">
+  <v-app class="container">
+    <v-main style="border: 2px solid black; border-radius: 5px; padding: 2em;">
       <Logo style="width: 100px; height: 50px;" />
-      <h1 class="title">
+      <h1 class="page-title">
         Nuxt with Vue CLI
       </h1>
       <div class="components">
         <h2 class="subtitle">Demonstrating a "nested list" component from components/lib/nested-list:</h2>
-        <nested-list :list-items="listItems" style="width: 250px;" />
+        <nested-list :list-items="listItems" />
       </div>
-    </div>
-  </div>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
 
+import 'roboto-fontface/css/roboto/roboto-fontface.css';
+import '@mdi/font/css/materialdesignicons.css';
+
 import data from '~/components/lib/nested-list/mockup-data.json';
 
 export default {
+  components: {
+    'nested-list': () => import('../components/lib/nested-list/NestedList.vue')
+  },
   data() {
     return {
       listItems: data.listItems
@@ -27,6 +33,7 @@ export default {
 </script>
 
 <style>
+
 .container {
   margin: 0 auto;
   min-height: 100vh;
@@ -36,7 +43,7 @@ export default {
   padding: 2em;
 }
 
-.title {
+.page-title {
   font-family:
     'Quicksand',
     'Source Sans Pro',

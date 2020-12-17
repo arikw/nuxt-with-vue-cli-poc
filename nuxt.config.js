@@ -29,7 +29,11 @@ export default {
     '@nuxtjs/eslint-module',
     // https://go.nuxtjs.dev/stylelint
     '@nuxtjs/stylelint-module',
-    '@nuxtjs/vuetify'
+
+    ['@nuxtjs/vuetify', {
+      defaultAssets: false
+    }]
+
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)

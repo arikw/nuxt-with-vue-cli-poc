@@ -11,7 +11,8 @@
     "@mdi/font": "^3.6.95",
     "roboto-fontface": "*",
     "vue-router": "^3.2.0",
-    "vuetify": "^2.3.21"
+    "vuetify": "^2.3.21",
+    "nested-list": "file:../components/lib/nested-list"
   },
   "devDependencies": {
     "@vue/cli-plugin-eslint": "^4.5.9",
@@ -24,5 +25,8 @@
     "vue-cli-plugin-vuetify": "~2.0.8",
     "vue-template-compiler": "^2.6.11",
     "vuetify-loader": "^1.3.0"
+  },
+  "peerDependencies": {
+    "vue": "^2.6.11"
   }
 }
