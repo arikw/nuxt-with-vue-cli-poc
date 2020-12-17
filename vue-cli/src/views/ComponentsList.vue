@@ -23,7 +23,7 @@
         color="primary"
       >
         <v-list-item
-          v-for="(component, i) in $route.meta.components"
+          v-for="(component, i) in $route.meta.components.filter(c => !c.hidden)"
           :key="i"
         >
           <v-list-item-content>
@@ -39,6 +39,6 @@
 // @ is an alias to /src
 
 export default {
-  name: 'ComponentsListing'
+  name: 'ComponentsList'
 };
 </script>

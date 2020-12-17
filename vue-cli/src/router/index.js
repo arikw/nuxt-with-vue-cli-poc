@@ -1,5 +1,4 @@
 import Vue from 'vue';
-import ComponentsListing from '../views/ComponentsListing.vue';
 import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
@@ -7,17 +6,13 @@ Vue.use(VueRouter);
 function createRoutesForComponents() {
 
   const componentRoutes = [];
-  const componentsRequire = require.context('../../../components/lib/', true, /\.vue$/, 'lazy');
   const componentURLs = [];
 
-  const componentFiles = componentsRequire.keys().filter(fn => !fn.endsWith('.usage.vue'));
+  const componentsRequire = require.context('../../../components/lib/', true, /^((?![\\/]node_modules|vendor[\\/]).)*\.vue$/, 'lazy');
+  const componentFiles = componentsRequire.keys();
   for (const filename of componentFiles) {
 
-    const usageFile = componentsRequire
-      .keys()
-      .find(usageFilename => `${usageFilename.replace('.usage.vue', '.vue')}` === filename);
-
-    const componentLoader = () => componentsRequire(usageFile || filename).then(module => {
+    const componentLoader = () => componentsRequire(filename).then(module => {
       console.info(`Loaded: ${module.default.__file}`);
       return module.default;
     });
@@ -27,7 +22,8 @@ function createRoutesForComponents() {
 
     componentURLs.push({
       path,
-      filename: componentDisplayFilename
+      filename: componentDisplayFilename,
+      hidden: !filename.endsWith('.usage.vue')
     });
 
     componentRoutes.push({
@@ -41,7 +37,7 @@ function createRoutesForComponents() {
 
   componentRoutes.push({
     path: '/',
-    component: ComponentsListing,
+    component: () => import('../views/ComponentsList.vue'),
     meta: {
       components: componentURLs
     }
@@ -58,9 +54,12 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: function () {
-      return import(/* webpackChunkName: "about" */ '../views/About.vue');
-    }
+    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+  },
+  {
+    path: '*',
+    name: 'Not Found',
+    component: () => import('../views/404.vue')
   }
 ];
 const router = new VueRouter({

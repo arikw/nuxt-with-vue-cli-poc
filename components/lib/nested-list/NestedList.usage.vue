@@ -1,5 +1,5 @@
-<template>
-  <div style="max-width: 600px; margin: 0 auto;">
+<template style="max-width: 600px; margin: 0 auto;">
+  <div>
     <v-card class="mx-auto pa-3 mb-3" style="position: sticky; top: 0; z-index: 999;">
       <v-text-field v-model="preselected" label="Pre-Selected Item ID" outlined dense hide-details class="mb-3" />
       <v-text-field :value="selectedFilter || 'None'" label="Selected Item ID" readonly outlined dense hide-details class="mb-3" />
