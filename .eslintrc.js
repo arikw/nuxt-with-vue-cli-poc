@@ -1,3 +1,4 @@
+const path = require('path');
 module.exports = {
   root: true,
   env: {
@@ -17,9 +18,21 @@ module.exports = {
     'eslint:recommended',
     'plugin:nuxt/recommended',
     'plugin:vue/recommended',
-    'plugin:security/recommended'
+    'plugin:security/recommended',
+    'plugin:vue-scoped-css/recommended',
+    'plugin:import/errors',
+    'plugin:import/warnings'
   ],
-
+  settings: {
+    'import/resolver': {
+      alias: {
+        map: [
+          ['@components-lib', path.resolve(__dirname, './components/lib')]
+        ],
+        extensions: ['.ts', '.js', '.jsx', '.json', '.vue']
+      }
+    }
+  },
   plugins: [
     'security',
     'filenames'
@@ -35,6 +48,7 @@ module.exports = {
     'no-empty': 'off',
     'camelcase': ['warn', { properties: 'never' }],
     'no-var': ['error'],
+    'prefer-const': ['error'],
     'block-spacing': ['warn', 'always'],
     'comma-spacing': ['warn', { before: false, after: true }],
     'comma-style': ['warn', 'last'],
@@ -53,6 +67,7 @@ module.exports = {
     'no-mixed-spaces-and-tabs': 'warn',
     'no-whitespace-before-property': 'warn',
     'switch-colon-spacing': 'error',
+    'key-spacing': ['warn'],
     'keyword-spacing': ['warn', { before: true }],
     'space-before-function-paren': [
       'warn',

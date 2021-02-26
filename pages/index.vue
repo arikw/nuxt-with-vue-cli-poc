@@ -18,11 +18,11 @@
 import 'roboto-fontface/css/roboto/roboto-fontface.css';
 import '@mdi/font/css/materialdesignicons.css';
 
-import data from '~/components/lib/nested-list/mockup-data.json';
+import data from '@components-lib/nested-list/mockup-data.json';
 
 export default {
   components: {
-    'nested-list': () => import('../components/lib/nested-list/NestedList.vue')
+    'nested-list': () => import('@components-lib/nested-list/NestedList.vue')
   },
   data() {
     return {
@@ -32,7 +32,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 
 .container {
   margin: 0 auto;

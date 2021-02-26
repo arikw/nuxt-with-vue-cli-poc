@@ -1,3 +1,4 @@
+import path from 'path';
 export default {
   // Global page headers (https://go.nuxtjs.dev/config-head)
   head: {
@@ -21,7 +22,7 @@ export default {
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
-  components: true,
+  components: false,
 
   // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
   buildModules: [
@@ -42,5 +43,10 @@ export default {
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
+    extend(config, ctx) {
+
+      config.resolve.alias['@components-lib'] = path.resolve(__dirname, './components/lib');
+
+    }
   }
 };

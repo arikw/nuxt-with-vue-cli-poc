@@ -5,11 +5,10 @@
         <router-link to="/">Home</router-link> |
         <router-link to="/about">About</router-link>
       </div-->
-
       <!-- Sizes your content based upon application components -->
-      <v-main class="pa-10">
+      <v-main>
         <!-- Provides the application the proper gutter -->
-        <v-container fluid>
+        <v-container fluid class="pa-10">
           <!-- If using vue-router -->
           <router-view />
         </v-container>
